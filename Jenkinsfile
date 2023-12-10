@@ -21,8 +21,8 @@ pipeline {
         stage('test') {
             steps {
                 script {
-                    sh 'testing code'
-                    sh 'success'
+                    sh 'echo testing code'
+                    sh 'echo success'
                 }
             }
         }
