@@ -26,8 +26,8 @@ pipeline {
         stage('deploy') {
             steps {
                 script {
-                    sh 'deploying image'
-                    sh 'success'
+                    sh 'echo "deploying image"'
+                    sh 'echo success'
                 }
             }
         }
