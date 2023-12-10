@@ -6,10 +6,10 @@ pipeline {
 
     stages {
         stage('build') {
+            tools {
+                nodejs 'recent-nodejs'
+            }
             steps {
-                tools {
-                    nodejs 'recent-nodejs'
-                }
                 script {
                     sh '''
                         echo "print version"
