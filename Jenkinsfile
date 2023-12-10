@@ -8,11 +8,11 @@ pipeline {
         stage('build') {
             steps {
                 tools {
-                    nodejs "recent-nodejs"
+                    nodejs 'recent-nodejs'
                 }
                 script {
                     sh '''
-                        echo 'print version'
+                        echo "print version"
                         node --version
                     '''
                 }
