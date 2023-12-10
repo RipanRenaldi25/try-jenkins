@@ -7,6 +7,9 @@ pipeline {
     stages {
         stage('build') {
             steps {
+                tools {
+                    node "current-nodejs"
+                }
                 script {
                     sh '''
                         echo 'print version'
