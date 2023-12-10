@@ -8,7 +8,7 @@ pipeline {
         stage('build') {
             steps {
                 tools {
-                    node "current-nodejs"
+                    nodejs "recent-nodejs"
                 }
                 script {
                     sh '''
