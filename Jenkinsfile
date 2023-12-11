@@ -15,17 +15,10 @@ pipeline {
             steps {
                 script {
                     sh '''
-                        docker build -t ripanrenaldi25/node-app:v0.0.3 .
+                        docker build -t ripanrenaldi25/node-app:v0.0.3 --target production .
                         docker images
                     '''
                 }
-            }
-        }
-        stage('package') {
-            steps {
-                sh '''
-                    docker 
-                '''
             }
         }
         stage('package') {
