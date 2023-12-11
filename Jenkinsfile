@@ -15,7 +15,8 @@ pipeline {
             steps {
                 script {
                     sh '''
-                        docker build -t ripanrenaldi25/node-app:v0.0.3 --target production .
+                        docker build -t ripanrenaldi25/node-app-build:0.0.3 --target build -f ./Dockerfile.prod .
+                        docker build -t ripanrenaldi25/node-app:v0.0.3 --target production -f ./Dockerfile.prod .
                         docker images
                     '''
                 }
