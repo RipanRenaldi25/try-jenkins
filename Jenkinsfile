@@ -24,11 +24,12 @@ pipeline {
         stage('package') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'docker-auth', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')])
-                    sh '''
-                    echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-                    docker push ripanrenaldi25/node-app:v0.0.3
-                    '''
+                    withCredentials([usernamePassword(credentialsId: 'docker-auth', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        sh '''
+                        echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+                        docker push ripanrenaldi25/node-app:v0.0.3
+                        '''
+                    }
                 }
             }
         }
