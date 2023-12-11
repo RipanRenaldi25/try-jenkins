@@ -5,32 +5,47 @@ pipeline {
     }
 
     stages {
-        stage('build') {
-            tools {
-                nodejs 'recent-nodejs'
+        stage('checkout') {
+            steps {
+                checkout scmGit(branches: [[name: '*/main']], userRemoteConfigs: [[credentialsId: 'github-auth', url: 'https://github.com/RipanRenaldi25/try-jenkins.git']])
+                sh 'ls -l'
             }
+        }
+        stage('build') {
             steps {
                 script {
                     sh '''
-                        echo "print version"
-                        node --version
+                        docker build -t ripanrenaldi25/node-app:v0.0.3 .
+                        docker images
                     '''
                 }
             }
         }
-        stage('test') {
+        stage('package') {
+            steps {
+                sh '''
+                    docker 
+                '''
+            }
+        }
+        stage('package') {
             steps {
                 script {
-                    sh 'echo testing code'
-                    sh 'echo success'
+                    withCredentials([usernamePassword(credentialsId: 'docker-auth', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')])
+                    sh '''
+                    echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+                    docker push ripanrenaldi25/node-app:v0.0.3
+                    '''
                 }
             }
         }
         stage('deploy') {
             steps {
                 script {
-                    sh 'echo "deploying image"'
-                    sh 'echo success'
+                    sh '''
+                        docker pull ripanrenaldi25/node-app:v0.0.3
+                        docker run -dp 3000:3000 -e PORT_APP="3000" --name node-app ripanrenaldi25/node-app:v0.0.3
+                    '''
                 }
             }
         }
