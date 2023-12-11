@@ -4,13 +4,11 @@ COPY package*.json /app
 RUN npm install
 COPY . .
 RUN npx tsc --build
-RUN ls -l
 
 FROM node:18-alpine as production
 WORKDIR /app
 COPY --from=build /app/dist /app
 COPY package*.json ./
 RUN npm install --only=production
-RUN ls -l
 EXPOSE 3000
 CMD npm run start:prod
