@@ -1,0 +1,14 @@
+FROM node:18-alpine as build
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npx tsc --build
+
+FROM node:18-alpine as production
+WORKDIR /app
+COPY --from=build /app/dist ./
+COPY package*.json ./
+RUN npm install --only=production
+EXPOSE 3000
+CMD npm run start:prod
